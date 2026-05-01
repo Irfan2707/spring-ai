@@ -24,8 +24,6 @@ public class ChatClientConfig {
     return new SimpleLoggerAdvisor();
   }
 
-
-
   @Bean
   public SafeGuardAdvisor safeGuardAdvisor() {
     return new SafeGuardAdvisor(List.of("Games"));
@@ -82,15 +80,14 @@ public class ChatClientConfig {
         .build();
   }
 
-
   @Bean
   public ChatMemory groqChatClientChatMemoryWithSession(
-          JdbcChatMemoryRepository jdbcChatMemoryRepository) {
-           return MessageWindowChatMemory.builder()
-                   .chatMemoryRepository(jdbcChatMemoryRepository)
-                   .maxMessages(10).build();
+      JdbcChatMemoryRepository jdbcChatMemoryRepository) {
+    return MessageWindowChatMemory.builder()
+        .chatMemoryRepository(jdbcChatMemoryRepository)
+        .maxMessages(10)
+        .build();
   }
-
 
   @Bean
   @Qualifier("ollamaChatClient")
@@ -100,7 +97,8 @@ public class ChatClientConfig {
 
   @Bean
   @Qualifier("groqChatClientWithoutChatMemory")
-  public ChatClient groqChatClientWithoutChatMemory(OpenAiChatModel groqChatClientWithoutChatMemory) {
+  public ChatClient groqChatClientWithoutChatMemory(
+      OpenAiChatModel groqChatClientWithoutChatMemory) {
     return ChatClient.builder(groqChatClientWithoutChatMemory).build();
   }
 }
