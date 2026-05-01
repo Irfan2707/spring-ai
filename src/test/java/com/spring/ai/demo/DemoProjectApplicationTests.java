@@ -1,6 +1,8 @@
 package com.spring.ai.demo;
 
+import com.spring.ai.demo.helper.Helper;
 import com.spring.ai.demo.service.ChatService;
+import com.spring.ai.demo.service.RagVectorDatabaseService;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,15 @@ class DemoProjectApplicationTests {
     var result = chatService.chatTemplate("resume", input);
 
     result.forEach(System.out::println);
+  }
+
+  @Autowired private RagVectorDatabaseService ragVectorDatabaseService;
+
+  @Test
+  void saveDataToVectorDatabase() {
+
+    System.out.println("Saving data to database");
+    ragVectorDatabaseService.storeDataIntoVectorDatabase(Helper.getData());
+    System.out.println("Data saved successfully to database");
   }
 }
