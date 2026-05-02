@@ -7,4 +7,8 @@ public interface RagVectorDatabaseService {
   void storeDataIntoVectorDatabase(List<String> companyDataList);
 
   String similaritySearchFromDatabase(String query);
+
+  String retrievalAugmentationAdvisor(String query);
+
+  String retrievalAugmentationAdvisorWithQueryAugmentor(String userQuestion);
 }

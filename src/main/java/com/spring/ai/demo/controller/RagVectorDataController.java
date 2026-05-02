@@ -69,4 +69,44 @@ public class RagVectorDataController {
       @Parameter(description = "Search query string") @RequestParam String query) {
     return ragVectorDatabaseService.similaritySearchFromDatabase(query);
   }
+
+  @GetMapping("/rag-with-advisor")
+  @Operation(
+      summary = "Retrieve documents using RetrievalAugmentationAdvisor",
+      description =
+          "Performs RAG (Retrieval-Augmented Generation) using RetrievalAugmentationAdvisor which searches the vector database for relevant documents and provides them as context to the AI model for generating answers")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description =
+                "RAG retrieval successful, returns AI-generated response with context from vector store",
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "string"))),
+        @ApiResponse(responseCode = "400", description = "Invalid query parameter"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+      })
+  public String retrievalAugmentedGenerationWithAdvisor(
+      @Parameter(description = "Search query string") @RequestParam String query) {
+    return ragVectorDatabaseService.retrievalAugmentationAdvisor(query);
+  }
+
+  @GetMapping("/rag-with-query-augmentor")
+  @Operation(
+      summary = "Retrieve documents with Query Augmentation",
+      description =
+          "Performs advanced RAG using QueryAugmentor paired with RetrievalAugmentationAdvisor. The QueryAugmentor transforms the user's query using the RAG system prompt template before retrieving documents, enabling better context matching and more relevant results")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            description =
+                "RAG retrieval successful with query augmentation, returns AI-generated response with enhanced context",
+            content = @Content(mediaType = "application/json", schema = @Schema(type = "string"))),
+        @ApiResponse(responseCode = "400", description = "Invalid query parameter"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+      })
+  public String retrievalAugmentationAdvisorWithQueryAugmentor(
+      @Parameter(description = "Search query string") @RequestParam String query) {
+    return ragVectorDatabaseService.retrievalAugmentationAdvisorWithQueryAugmentor(query);
+  }
 }
