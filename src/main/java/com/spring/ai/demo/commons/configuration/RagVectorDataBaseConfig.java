@@ -28,8 +28,6 @@ public class RagVectorDataBaseConfig {
     return new OpenAiEmbeddingModel(
         openAiApi,
         MetadataMode.EMBED,
-        OpenAiEmbeddingOptions.builder()
-            .model("gemini-embedding-001") // ✅ correct model name
-            .build());
+        OpenAiEmbeddingOptions.builder().model("gemini-embedding-001").build());
   }
 }
